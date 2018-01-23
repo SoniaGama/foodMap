@@ -28,6 +28,10 @@ input, input::placeholder {
   width: 90%;
 }
 
+.images-food {
+  width: 20%;
+}
+
 #map {
   height: 30vh;
   width: 90%;

@@ -1,8 +1,9 @@
 $(document).ready(loadPage);
 var $searcher = $('#input-select');
+var $mapa = $("#map");
+// var $valInput = $searcher.val().toLowerCase();
 
-
-// mapa de google maps
+// mapa
 function mapFood() {
     var mapOptions = {
         center: new google.maps.LatLng(19.4203024, -99.1631142),
@@ -12,9 +13,9 @@ function mapFood() {
 var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 }
 
-
+//funcion que carga hace la vista splash y manda a la funcion de filtrado
 function loadPage() {
-   // comienza con una vista splash y se remueve la clase d-none para que
+   // comienza con una vista splash y se remueve la clase hidden para que
    // muestre el contenido
   $(".section-fade-out").fadeOut(2000, function(){
     $(".main-section").removeClass("hidden");
@@ -24,100 +25,86 @@ function loadPage() {
   $searcher.keyup(filterOptions);
 }
 
-// console.log($foodMap[2]['type']);
-//
-// function filterOptions () {
-//   var food = []
-//   // guardamos el value de input
-//   var $valInput = $searcher.val().toLowerCase();
-//   // console.log($valInput);
-//
-//   if($('#input-select').val().trim().length > 0){
-//
-//     var filtered = $foodMap.filter(function(){
-//       for (var i = 0; i < $foodMap.length; i++) {
-//         var places = $foodMap[i]['type'];
-//          // console.log(places);
-//          // console.log(places.type.toLowerCase().indexOf($valInput) >= 0);
-//          // var result = places.type.toLowerCase().indexOf($valInput) >= 0;
-//          var result = places.toLowerCase().indexOf($valInput) >= 0;
-//          // food.push(places);
-//          // console.log(food);
-//           // return result;
-//       }
-//       console.log(places);
-//       // console.log(places.type.toLowerCase().indexOf($valInput) >= 0);
-//      // return places.type.toLowerCase().indexOf($valInput) >= 0;
-//   });
-//   // console.log(filtered);
-//   $('#container-place').empty();
-//   filtered.forEach(function(){
-//     // paintOptions(places);
-//   });
-//   }
-// }
-
-
+//filtramos los restaurantes
 function filterOptions () {
-
+  //guardamos el value del input
   var $valInput = $searcher.val().toLowerCase();
+  //accedemos filtramos nuestra data con el valor que ingresa el usuario
   var food = $foodMap2[$valInput];
   // console.log(food);
-
   if($('#input-select').val().trim().length > 0){
     for (var i in $foodMap2) {
       var places = i
       if(places.toLowerCase() === $valInput){
+        //llamamos a la funcion para pintar la información filtrada y le pasamos la data como argumento
          paintOptions(food);
       }
     }
   }
 }
 
-
-    //this - data target--
-
-
-  //   var filtered = $foodMap2.filter(function(){
-  //     for (var i in $foodMap2) {
-  //       var places = $foodMap2[i]
-  //       console.log(places);
-  //
-  //        // var result = places.toLowerCase().indexOf($valInput) >= 0;
-  //
-  //     }
-  //
-  // });
-  // console.log(filtered);
-  // $('#container-place').empty();
-  // filtered.forEach(function(){
-    // paintOptions(places);
-  // });
-
 function paintOptions(food){
-
+  //traemos nuestros elementos del html
   var $container = $(".container-place");
   var modalTitle = $(".modal-title");
   var modalBody = $(".modal-body");
-
+  //Limpiamos la imagenes de nuestro contenedor
   $container.empty();
   // console.log(food);
-
   for (var i = 0; i < food.length; i++) {
+    //iteramos en la data y creamos elementos y asignamos sus atributos
     var restaurants = food[i];
-    // console.log(restaurants);
     var images = $('<img>');
-    var srcImg = restaurants['img'];
-    images.attr('src', srcImg);
+    images.attr({'class':'images-food', 'data-toggle':'modal', 'data-target':'#modal-show', 'src':restaurants['img']});
     $container.append(images);
 
-    paintModal($container);
-    // console.log($container);
+
   }
-  // console.log(restaurants);
-  // var $containerFoods = $("<article />", {"class":"container-place"});
+  paintInformationModal(food);
 }
 
-function paintModal ($container) {
-  
+
+function paintInformationModal(food) {
+
+  var type = [];
+  var places;
+  var data;
+  var $modal = $("#modal-body");
+
+   for (var i = 0; i < food.length; i++) {
+    type.push(food[i]);
+    // var type2 = food[i];
+  }
+  // console.log(type);
+  for (var j = 0; j < type.length; j++) {
+    // console.log(type[j]);
+    places = type[j];
+    // places.push(type[j]);
+      console.log(places['name']);
+
+      var $slogan = $("<p />");
+
+      $slogan.text(places['slogan']);
+      $modal.append($slogan);
+    // for (var n in places) {
+    //  data = places[n];
+    // }
+  }
+
+  // console.log(places);
+
+
+     // var $slogan = $("<p />");
+     //
+     //
+     // $slogan.text(places);
+     //
+     // $modal.append($slogan);
+     // $modal.append($direction);
+     // $modal.append($precios);
+     // $modal.append($services);
+
+     // $modal.append($mapa);
+
+
 }
