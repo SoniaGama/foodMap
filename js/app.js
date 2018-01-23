@@ -1,6 +1,7 @@
 $(document).ready(loadPage);
 var $searcher = $('#input-select');
 var $mapa = $("#map");
+var $container = $(".container-place");
 // var $valInput = $searcher.val().toLowerCase();
 
 // mapa
@@ -25,6 +26,15 @@ function loadPage() {
   $searcher.keyup(filterOptions);
 }
 
+// function mainView () {
+//   var restaurants = [];
+//   for (var i in $foodMap2) {
+//     restaurants.push($foodMap2[i]);
+//   }
+// }
+//
+// mainView();
+
 //filtramos los restaurantes
 function filterOptions () {
   //guardamos el value del input
@@ -45,7 +55,6 @@ function filterOptions () {
 
 function paintOptions(food){
   //traemos nuestros elementos del html
-  var $container = $(".container-place");
   var modalTitle = $(".modal-title");
   var modalBody = $(".modal-body");
   //Limpiamos la imagenes de nuestro contenedor
@@ -55,21 +64,24 @@ function paintOptions(food){
     //iteramos en la data y creamos elementos y asignamos sus atributos
     var restaurants = food[i];
     var images = $('<img>');
-    images.attr({'class':'images-food', 'data-toggle':'modal', 'data-target':'#modal-show', 'src':restaurants['img']});
+    images.attr({'class':'images-food, col-xs-3', 'data-toggle':'modal', 'data-target':'#modal-show', 'src':restaurants['img']});
     $container.append(images);
 
-
+    //limpiamos el input despues de la busqueda
+    $searcher.val("");
   }
+  //llamamos a la funcion que pinta en el modal
   paintInformationModal(food);
 }
 
 
 function paintInformationModal(food) {
-
   var type = [];
   var places;
   var data;
   var $modal = $("#modal-body");
+
+  $modal.empty();
 
    for (var i = 0; i < food.length; i++) {
     type.push(food[i]);
@@ -82,29 +94,24 @@ function paintInformationModal(food) {
     // places.push(type[j]);
       console.log(places['name']);
 
+      var $name = $("<p />");
       var $slogan = $("<p />");
+      var $address = $("<p />");
+      var $prices = $("<p />");
+      var $services = $("<p />");
 
+      $name.text(places['name']);
       $slogan.text(places['slogan']);
+      $address.text(places['address']);
+      $prices.text(places['prices']);
+      $services.text(places['services']);
+
+      $modal.append($name);
       $modal.append($slogan);
-    // for (var n in places) {
-    //  data = places[n];
-    // }
+      $modal.append($address);
+      $modal.append($prices);
+      $modal.append($services);
+
   }
-
-  // console.log(places);
-
-
-     // var $slogan = $("<p />");
-     //
-     //
-     // $slogan.text(places);
-     //
-     // $modal.append($slogan);
-     // $modal.append($direction);
-     // $modal.append($precios);
-     // $modal.append($services);
-
-     // $modal.append($mapa);
-
 
 }

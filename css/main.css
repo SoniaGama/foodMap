@@ -24,18 +24,20 @@ input, input::placeholder {
   border: 2px solid rgb(255, 156, 6);
 }
 
-.input-group {
-  width: 90%;
+.images-food {
+  width: 25%;
 }
 
-.images-food {
-  width: 20%;
+.margin-top {
+  margin-top: 45vh;
+}
+
+.margin-bottom-5 {
+  margin-bottom: 5vh;
 }
 
 #map {
   height: 30vh;
-  width: 90%;
-  background-color: grey;
   border: 2px solid rgb(255, 156, 6);
   border-radius: 3px;
 }
