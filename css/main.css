@@ -25,12 +25,11 @@ input, input::placeholder {
 }
 
 .input-group {
-  margin-bottom: 5vh;
   width: 90%;
 }
 
 #map {
-  height: 60vh;
+  height: 30vh;
   width: 90%;
   background-color: grey;
   border: 2px solid rgb(255, 156, 6);
