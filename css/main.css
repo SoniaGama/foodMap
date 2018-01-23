@@ -17,7 +17,7 @@ body {
 }
 
 input, input::placeholder {
-  color: rgb(232, 127, 2) !important;
+  color: rgb(213, 116, 2) !important;
 }
 
 .input-group-text, .form-control{

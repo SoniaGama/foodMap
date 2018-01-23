@@ -1,8 +1,8 @@
-$(document).ready(loadPage);
+//traemos elementos
 var $searcher = $('#input-select');
 var $mapa = $("#map");
 var $container = $(".container-place");
-// var $valInput = $searcher.val().toLowerCase();
+
 
 // mapa
 function mapFood() {
@@ -26,6 +26,7 @@ function loadPage() {
   $searcher.keyup(filterOptions);
 }
 
+// funcion para pintar todos los restaurantes
 // function mainView () {
 //   var restaurants = [];
 //   for (var i in $foodMap2) {
@@ -35,17 +36,18 @@ function loadPage() {
 //
 // mainView();
 
-//filtramos los restaurantes
+//funcion para filtrar  los restaurantes
 function filterOptions () {
   //guardamos el value del input
   var $valInput = $searcher.val().toLowerCase();
   //accedemos filtramos nuestra data con el valor que ingresa el usuario
   var food = $foodMap2[$valInput];
-  // console.log(food);
+
   if($('#input-select').val().trim().length > 0){
     for (var i in $foodMap2) {
       var places = i
       if(places.toLowerCase() === $valInput){
+        //si el valor ingresado por el usuario es igual a la key del tipo de comida en la data
         //llamamos a la funcion para pintar la información filtrada y le pasamos la data como argumento
          paintOptions(food);
       }
@@ -53,15 +55,13 @@ function filterOptions () {
   }
 }
 
+//funcion para pintar los restaurantes seleccionados
 function paintOptions(food){
-  //traemos nuestros elementos del html
-  var modalTitle = $(".modal-title");
-  var modalBody = $(".modal-body");
   //Limpiamos la imagenes de nuestro contenedor
   $container.empty();
   // console.log(food);
   for (var i = 0; i < food.length; i++) {
-    //iteramos en la data y creamos elementos y asignamos sus atributos
+    //iteramos en la data, creamos elementos y asignamos sus atributos
     var restaurants = food[i];
     var images = $('<img>');
     images.attr({'class':'images-food, col-xs-3', 'data-toggle':'modal', 'data-target':'#modal-show', 'src':restaurants['img']});
@@ -74,7 +74,7 @@ function paintOptions(food){
   paintInformationModal(food);
 }
 
-
+//funcion para pintar la informacion de los restaurates en el modal
 function paintInformationModal(food) {
   var type = [];
   var places;
@@ -82,36 +82,39 @@ function paintInformationModal(food) {
   var $modal = $("#modal-body");
 
   $modal.empty();
+  //limpiamos el modal
 
    for (var i = 0; i < food.length; i++) {
-    type.push(food[i]);
-    // var type2 = food[i];
+     //iteramos en el objeto que selecciona el usuario
+     type.push(food[i]);
   }
-  // console.log(type);
-  for (var j = 0; j < type.length; j++) {
-    // console.log(type[j]);
-    places = type[j];
-    // places.push(type[j]);
-      console.log(places['name']);
 
+  for (var j = 0; j < type.length; j++) {
+    // iteramos en la informacion seleccionada
+    places = type[j];
+
+      // console.log(places['name']);
+      // creamos elementos
       var $name = $("<p />");
       var $slogan = $("<p />");
       var $address = $("<p />");
       var $prices = $("<p />");
       var $services = $("<p />");
 
+      // asignamos valor
       $name.text(places['name']);
       $slogan.text(places['slogan']);
       $address.text(places['address']);
       $prices.text(places['prices']);
       $services.text(places['services']);
 
+      // los agregamos al modal
       $modal.append($name);
       $modal.append($slogan);
       $modal.append($address);
       $modal.append($prices);
       $modal.append($services);
-
   }
-
 }
+
+$(document).ready(loadPage);
